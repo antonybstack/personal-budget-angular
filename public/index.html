@@ -82,8 +82,10 @@
         </section>
         <!-- This is a Semantic HTML Change -->
         <section class="text-box">
-          <h1>Free</h1>
-          <p>This app is free!!! And you are the only one holding your data!</p>
+          <h1>My Chart</h1>
+          <p>
+            <canvas id="myChart" width="400" height="400"></canvas>
+          </p>
         </section>
       </div>
     </div>
@@ -92,5 +94,51 @@
     <footer class="bottom">
       <div class="center">All rights reserved &copy; Fabio Nolasco</div>
     </footer>
+    <!-- Axios -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
+      integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+      integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg=="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      dataSource = {
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            backgroundColor: ["rgba(255, 206, 86, 0.7)", "rgba(255, 99, 132, 0.7)", "rgba(54, 162, 235, 0.7)"],
+            borderColor: ["rgba(255, 206, 86, 1)", "rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+            borderWidth: 1,
+          },
+        ],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+      };
+
+      function createChart() {
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myDoughnutChart = new Chart(ctx, {
+          type: "doughnut",
+          data: dataSource,
+        });
+      }
+
+      function getBudget() {
+        axios.get("/budget").then(function (res) {
+          console.log(res.data);
+          for (var i = 0; i < res.data.myBudget.length; i++) {
+            dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
+            dataSource.labels[i] = res.data.myBudget[i].title;
+          }
+          createChart();
+        });
+      }
+      getBudget();
+    </script>
   </body>
 </html>
