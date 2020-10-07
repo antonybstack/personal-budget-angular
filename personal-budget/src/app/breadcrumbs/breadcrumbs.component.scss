@@ -1,0 +1,23 @@
+.breadcrumbs {
+  text-align: left;
+  color: #b3b3b3;
+  background-color: #f0f0f0;
+  padding: 0.5em;
+  font-weight: bold;
+}
+
+.breadcrumbs a {
+  text-align: left;
+  color: #7686e0;
+  font-size: 1.3em;
+}
+
+.breadcrumbs a:hover {
+  text-align: left;
+  color: #9aa7f0;
+}
+
+span {
+  cursor: default;
+  user-select: none;
+}

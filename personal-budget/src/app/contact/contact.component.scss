@@ -1,0 +1,20 @@
+.contact-container {
+  min-height: 48vh;
+  text-align: center;
+}
+
+.info {
+  font-weight: normal;
+}
+
+input,
+textarea,
+button {
+  width: 20vw;
+  height: 3em;
+  font-size: 1.3em;
+}
+
+textarea {
+  height: 10em;
+}
